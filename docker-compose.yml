@@ -1,0 +1,19 @@
+version: '3'
+services:
+  auth-service:
+    build: .
+    container_name: auth_service
+    restart: always
+    ports:
+      - "3002:3002"
+    environment:
+      - JWT_SECRET=AuthSecretKey
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
